@@ -2,7 +2,7 @@
 
 ## Project snapshot
 
-ScriptDock is a small Java 17 Swing library for embedding or running a tabbed JSR-223 script console. The main runtime entrypoints are:
+ScriptDock is a small Java 25 Swing library for embedding or running a tabbed JSR-223 script console. The main runtime entrypoints are:
 
 - `io.scriptdock.sample.EmbedExample` – sample embedding of the library into a host app
 - `io.scriptdock.ScriptDock` – standalone launcher
@@ -44,7 +44,7 @@ The key architectural pattern is a host-neutral UI layer with a pluggable execut
 
 ## Project-specific conventions
 
-- Java 17 is required (`maven.compiler.release` in `pom.xml`). Do not introduce newer language features unless specifically needed.
+- Java 25 is required (`maven.compiler.release` in `pom.xml`). Do not introduce newer language features unless specifically needed.
 - Default engine behavior is Groovy-first. `Jsr223ScriptRunner.availableEngineNames()` deliberately reorders the engine list so Groovy appears first even when other JSR-223 engines are installed.
 - Script execution is intentionally blank-safe: a blank script is rejected with `"There is nothing to run"` before evaluation starts.
 - Script failures map back to an editor line number when possible (`ScriptException.getLineNumber()` or script-like stack entries), and `ScriptEditor.highlightErrorLine(...)` is used to highlight the failing line in the editor.

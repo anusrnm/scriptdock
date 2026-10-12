@@ -1,6 +1,6 @@
 # ScriptDock
 
-ScriptDock is a small embeddable Swing script console for Java 17 applications. It provides
+ScriptDock is a small embeddable Swing script console for Java 25 applications. It provides
 multiple editor tabs, per-tab dirty tracking and file handling, Find/Replace, line numbers,
 comment/uncomment line and block actions, Run/Stop controls, output capture, error-line
 highlighting, brace-based code folding, and JSR-223 engine selection.
