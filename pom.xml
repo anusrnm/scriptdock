@@ -6,14 +6,14 @@
 
   <groupId>io.scriptdock</groupId>
   <artifactId>scriptdock</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>ScriptDock</name>
   <description>Embeddable and standalone tabbed JSR-223 script console</description>
 
   <properties>
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <groovy.version>4.0.15</groovy.version>
+    <groovy.version>4.0.33</groovy.version>
     <junit.version>5.11.4</junit.version>
   </properties>
 
