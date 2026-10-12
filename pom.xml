@@ -6,7 +6,7 @@
 
   <groupId>io.scriptdock</groupId>
   <artifactId>scriptdock</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>ScriptDock</name>
   <description>Embeddable and standalone tabbed JSR-223 script console</description>
 

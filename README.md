@@ -39,22 +39,29 @@ Groovy is included as the default JSR-223 engine.
 
 ## GitHub Releases
 
-The GitHub Actions release workflow tests and packages the runnable application when you push a
-version tag. Before releasing, set the version in `pom.xml` to the release version (without the
-`-SNAPSHOT` suffix), commit that change, and push a matching tag without a `v` prefix. For example,
-for version `1.0.0`:
+Use the `1.0.x` branch for maintenance fixes to the 1.0 line. Push the branch to GitHub to enable CI
+on it:
 
 ```powershell
-git tag 1.0.0
-git push origin 1.0.0
+git push --set-upstream origin 1.0.x
 ```
 
-The workflow creates a GitHub Release with a `scriptdock-1.0.0.zip` asset containing the runnable
-JAR and its runtime dependencies. Extract the ZIP and run the JAR from the extracted `scriptdock`
-directory:
+Merge or cherry-pick maintenance fixes back to `main` so both lines receive the changes. Releases
+remain tag-triggered: set the POM version to the patch release version (without `-SNAPSHOT`), commit
+that change on `1.0.x`, and push a matching version tag without a `v` prefix. For example, to release
+`1.0.1`:
 
 ```powershell
-java -jar scriptdock-1.0.0.jar
+git tag 1.0.1
+git push origin 1.0.1
+```
+
+The workflow verifies the tests and POM/tag version match, then creates a GitHub Release with a
+`scriptdock-1.0.1.zip` asset containing the runnable JAR and its runtime dependencies. Extract the ZIP
+and run the JAR from the extracted `scriptdock` directory:
+
+```powershell
+java -jar scriptdock-1.0.1.jar
 ```
 
 ## Embed ScriptDock
