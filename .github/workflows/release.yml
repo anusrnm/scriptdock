@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "[0-9]*"
+
+permissions: {}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+
+      - name: Check tag matches Maven version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          VERSION="$(mvn --batch-mode --quiet help:evaluate -Dexpression=project.version -DforceStdout)"
+          if [[ "$VERSION" != "$RELEASE_TAG" ]]; then
+            echo "Tag $RELEASE_TAG does not match Maven version $VERSION" >&2
+            exit 1
+          fi
+          if [[ "$VERSION" == *-SNAPSHOT ]]; then
+            echo "Cannot release a SNAPSHOT version: $VERSION" >&2
+            exit 1
+          fi
+
+      - name: Build and test
+        run: mvn --batch-mode clean verify
+
+      - name: Bundle runnable application
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          mkdir -p release/scriptdock
+          cp target/scriptdock-"$RELEASE_TAG".jar release/scriptdock/
+          cp -R target/lib release/scriptdock/
+          (cd release && zip -r "../scriptdock-${RELEASE_TAG}.zip" scriptdock)
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: scriptdock-*.zip
